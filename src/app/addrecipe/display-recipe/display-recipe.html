@@ -1,0 +1,82 @@
+<h2 mat-dialog-title>{{ recipe.title }}</h2>
+<mat-dialog-content class="mat-typography">
+  <mat-card class="recipe-card">
+    <mat-card-header>
+      <mat-card-title>{{ recipe.title }}</mat-card-title>
+      <mat-card-subtitle>By {{ recipe.author }} | {{ recipe.site_name }}</mat-card-subtitle>
+    </mat-card-header>
+
+    <img mat-card-image [src]="recipe.image" alt="Recipe Image" />
+
+    <mat-card-content>
+      <p class="description">
+        {{ recipe.description }}
+      </p>
+
+      <mat-chip-listbox *ngIf="recipe.category">
+        <mat-chip *ngFor="let cat of recipe.category.split(',')">{{ cat }}</mat-chip>
+      </mat-chip-listbox>
+
+      <!-- <mat-accordion>
+        <mat-expansion-panel hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title> Nutrition Info </mat-panel-title>
+            <mat-panel-description> This is a summary of the content </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-list *ngIf="recipe.nutrients">
+            <mat-list-item *ngIf="recipe.nutrients.calories">
+              <span matListItemTitle>Calories:</span>
+              <span matListItemLine>{{ recipe.nutrients.calories }}</span>
+            </mat-list-item>
+            <mat-list-item *ngIf="recipe.nutrients.fatContent">
+              <span matListItemTitle>Fat:</span>
+              <span matListItemLine>{{ recipe.nutrients.fatContent }}</span>
+            </mat-list-item>
+            <mat-list-item *ngIf="recipe.nutrients.carbohydrateContent">
+              <span matListItemTitle>Carbs:</span>
+              <span matListItemLine>{{ recipe.nutrients.carbohydrateContent }}</span>
+            </mat-list-item>
+            <mat-list-item *ngIf="recipe.nutrients.proteinContent">
+              <span matListItemTitle>Protein:</span>
+              <span matListItemLine>{{ recipe.nutrients.proteinContent }}</span>
+            </mat-list-item>
+          </mat-list>
+        </mat-expansion-panel>
+      </mat-accordion> -->
+
+      <div class="time-info">
+        <mat-icon>schedule</mat-icon>
+        Prep: {{ recipe.prep_time }} min | Cook: {{ recipe.cook_time }} min | Total: {{ recipe.total_time }} min
+      </div>
+
+      <div class="yield">
+        <strong>Yields:</strong> {{ recipe.yeilds }}
+      </div>
+
+      <h3>Ingredients</h3>
+      <ul>
+        <li *ngFor="let ingredient of recipe.ingredients">{{ ingredient }}</li>
+      </ul>
+
+      <h3>Instructions</h3>
+      <ol>
+        <li *ngFor="let step of recipe.instructions_list">{{ step }}</li>
+      </ol>
+
+      <h3>Ratings</h3>
+      <mat-icon>star</mat-icon> {{ recipe.ratings }} ({{ recipe.ratings_count }} ratings)
+
+      <h3 *ngIf="recipe.cuisine">Cuisine</h3>
+      <mat-chip *ngIf="recipe.cuisine">{{ recipe.cuisine }}</mat-chip>
+
+      <div class="link">
+        <a [href]="recipe.canonical_url" target="_blank">View Full Recipe</a>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button matButton mat-dialog-close>Cancel</button>
+  <button matButton [mat-dialog-close]="true" cdkFocusInitial>Go</button>
+</mat-dialog-actions>

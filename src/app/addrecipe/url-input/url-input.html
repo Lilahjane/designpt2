@@ -1,0 +1,13 @@
+<h2 mat-dialog-title>Enter Recipe URL</h2>
+<mat-dialog-content>
+  <mat-form-field appearance="fill" class="w-full">
+    <mat-label>Recipe URL</mat-label>
+    <input matInput [(ngModel)]="url" placeholder="https://example.com/recipe" />
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="url" [disabled]="!url" cdkFocusInitial>
+    Go
+  </button>
+</mat-dialog-actions>
