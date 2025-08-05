@@ -1,0 +1,49 @@
+CREATE TABLE raw (
+  id SERIAL PRIMARY KEY,
+  json JSONB NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  isProcessed bool default=False
+
+);
+
+CREATE TABLE recipe_info (
+  recipe_id INTEGER PRIMARY KEY REFERENCES raw(id) ON DELETE CASCADE,
+  url varchar(250),
+  host varchar(250),
+  image varchar(250),
+  title varchar(250),
+  author varchar(250),
+  yields varchar(250),
+  cuisine varchar(250),
+  ratings varchar(250),
+  category varchar(250),
+  language varchar(250),
+  cook_time varchar(250),
+  prep_time varchar(250),
+  total_time varchar(250),
+  site_name varchar(250),
+  description varchar(250),
+  canonical_url varchar(250),
+  ratings_count varchar(250)
+);
+
+CREATE TABLE nutrients (
+  id SERIAL PRIMARY KEY,
+  recipe_id  INTEGER REFERENCES raw(id) ON DELETE CASCADE,
+  calories varchar(250),
+  fat_content varchar(250),
+  fiber_content varchar(250),
+  sugar_content varchar(250),
+  sodium_content varchar(250),
+  protein_content varchar(250),
+  cholesterol_content varchar(250),
+  carbohydrate_content varchar(250),
+  saturated_fat_content varchar(250),
+  unsaturated_fat_content varchar(250)
+);
+
+CREATE TABLE dirty_ingredients (
+  id SERIAL INTEGER PRIMARY KEY,
+  recipe_id  REFERENCES raw(id) ON DELETE CASCADE,
+  ingredient varchar(600)
+);

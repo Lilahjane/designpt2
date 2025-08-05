@@ -78,5 +78,6 @@
 
 <mat-dialog-actions align="end">
   <button matButton mat-dialog-close>Cancel</button>
-  <button matButton [mat-dialog-close]="true" cdkFocusInitial>Go</button>
+  <button matButton [mat-dialog-close]="true" cdkFocusInitial (click)="save()" >save</button>
 </mat-dialog-actions>
+<!--  -->
