@@ -46,7 +46,7 @@ get recipe(): Recipe {
       },
       error: (err) => {
         console.error('Failed to save recipe:', err);
-        alert('Failed to save recipe');
+        alert(`Failed to save recipe: ${err}`);
       }
     });
   }

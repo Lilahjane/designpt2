@@ -1,0 +1,34 @@
+
+export interface RecipeInfo {
+  recipe_url: string;
+  recipe_id: string;
+  url?: string;
+  host?: string;
+  image?: string;
+  title?: string;
+  author?: string;
+  yields?: string;
+  cuisine?: string;
+  ratings?: string;
+  instructions?: string;
+  instructions_list: string[];
+  category?: string;
+  language?: string;
+  cook_time?: string;
+  prep_time?: string;
+  total_time?: string;
+  site_name?: string;
+  description?: string;
+  canonical_url?: string;
+  ratings_count?: string;
+  calories?: string;
+  fat_content?: string;
+  fiber_content?: string;
+  sugar_content?: string;
+  sodium_content?: string;
+  protein_content?: string;
+  cholesterol_content?: string;
+  carbohydrate_content?: string;
+  saturated_fat_content?: string;
+  unsaturated_fat_content?: string;
+}

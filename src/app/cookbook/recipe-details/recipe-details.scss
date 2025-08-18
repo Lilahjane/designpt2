@@ -1,0 +1,148 @@
+.recipe-card {
+  max-width: 900px;
+  margin: 2rem auto;
+  overflow: hidden;
+}
+
+.recipe-header {
+  position: relative;
+}
+
+.recipe-image {
+  max-height: 500px;
+  object-fit: cover;
+  width: 100%;
+}
+
+.recipe-header-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
+  color: white;
+  padding: 2rem;
+  
+  h1 {
+    margin: 0;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  }
+}
+
+.recipe-meta {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1rem;
+  
+  span {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}
+
+.recipe-description {
+  margin: 1.5rem 0;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.recipe-details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.detail-card {
+  mat-card-content {
+    padding: 1rem;
+  }
+}
+
+.time-item {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.5rem 0;
+}
+
+.servings {
+  font-size: 1.2rem;
+  text-align: center;
+  padding: 1rem 0;
+}
+
+.rating-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  
+  mat-icon {
+    color: #FFD700;
+    
+    &.filled {
+      color: #FFD700;
+    }
+  }
+}
+
+.nutrition-section, .instructions-section {
+  margin: 2rem 0;
+  
+  h2 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+}
+
+.nutrition-card {
+  mat-card-content {
+    padding: 1rem;
+  }
+}
+
+.nutrition-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.nutrition-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+.instructions-section {
+  mat-expansion-panel {
+    margin-bottom: 0.5rem;
+    box-shadow: none;
+    border: 1px solid #eee;
+    
+    p {
+      margin: 0;
+      padding: 0.5rem 0;
+      line-height: 1.6;
+    }
+  }
+}
+
+@media print {
+  .recipe-header-overlay {
+    position: relative;
+    background: none;
+    color: black;
+    padding: 1rem 0;
+    
+    h1 {
+      text-shadow: none;
+    }
+  }
+  
+  mat-card-actions {
+    display: none;
+  }
+}

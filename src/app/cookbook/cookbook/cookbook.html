@@ -1,0 +1,47 @@
+<div class="grid">
+  <mat-card
+    class="recipe-card"
+    *ngFor="let recipe of visibleRecipes"
+  >
+    <mat-card-header>
+      <mat-card-title>{{ recipe.title || 'Untitled Recipe' }}</mat-card-title>
+      <mat-card-subtitle>
+        Cuisine: {{ recipe.cuisine || 'Unknown' }}
+      </mat-card-subtitle>
+    </mat-card-header>
+
+    <img
+      mat-card-image
+      [src]="recipe.image || 'assets/default-recipe.jpg'"
+      alt="Recipe photo"
+    />
+
+    <mat-card-content>
+      <div>
+        {{ recipe.calories || '0' }} Calories
+      </div>
+      <div>Preparation Time: {{ recipe.prep_time || 'Not specified' }}</div>
+      <div>Cook Time: {{ recipe.cook_time || 'Not specified' }}</div>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button
+        mat-raised-button
+        color="primary"
+        style="margin-left: 8px"
+        (click)="viewRecipe(recipe)"
+      >
+        VIEW
+      </button>
+    </mat-card-actions>
+  </mat-card>
+
+  <div class="pagination">
+    <mat-paginator
+      [length]="savedrecipes.length"
+      [pageSize]="recipesPerPage"
+      aria-label="Select page size"
+      (page)="handlePageChange($event)"
+    ></mat-paginator>
+  </div>
+</div>

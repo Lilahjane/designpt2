@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
 export class RecipeSaver {
-  private readonly API_URL = 'http://localhost:3000/recipes';
+  private readonly API_URL = 'http://localhost:4000/recipes';
 
   constructor(private http: HttpClient) {}
 
