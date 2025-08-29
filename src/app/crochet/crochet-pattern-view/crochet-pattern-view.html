@@ -1,0 +1,30 @@
+<div *ngIf="pattern" class="pattern-view-container">
+  <div class="header-section">
+    <button mat-icon-button class="back-btn" (click)="goBack()" aria-label="Go back">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <h1 class="pattern-title">{{ pattern.title }}</h1>
+  </div>
+
+  <div class="featured-image-container">
+    <img [src]="pattern.featured_image" alt="Featured image" class="featured-image" />
+  </div>
+
+  <div class="steps-container">
+    <mat-accordion multi class="steps-accordion">
+      <mat-expansion-panel *ngFor="let step of pattern.steps; let i = index" class="step-card">
+        <mat-expansion-panel-header class="step-header">
+          <mat-panel-title class="step-title">
+ 
+            Step {{ i + 1 }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        
+        <div class="step-content">
+          <img [src]="step.image" *ngIf="step.image" alt="Step {{ i + 1 }} image" class="step-image" />
+          <p *ngIf="step.text" class="step-text">{{ step.text }}</p>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</div>

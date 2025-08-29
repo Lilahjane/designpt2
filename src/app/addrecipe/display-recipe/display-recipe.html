@@ -17,32 +17,32 @@
         <mat-chip *ngFor="let cat of recipe.category.split(',')">{{ cat }}</mat-chip>
       </mat-chip-listbox>
 
-      <!-- <mat-accordion>
+      <mat-accordion>
         <mat-expansion-panel hideToggle>
           <mat-expansion-panel-header>
             <mat-panel-title> Nutrition Info </mat-panel-title>
             <mat-panel-description> This is a summary of the content </mat-panel-description>
           </mat-expansion-panel-header>
           <mat-list *ngIf="recipe.nutrients">
-            <mat-list-item *ngIf="recipe.nutrients.calories">
+            <mat-list-item *ngIf="recipe.nutrients['calories']">
               <span matListItemTitle>Calories:</span>
-              <span matListItemLine>{{ recipe.nutrients.calories }}</span>
+              <span matListItemLine>{{ recipe.nutrients['calories'] }}</span>
             </mat-list-item>
-            <mat-list-item *ngIf="recipe.nutrients.fatContent">
+            <mat-list-item *ngIf="recipe.nutrients['fatContent']">
               <span matListItemTitle>Fat:</span>
-              <span matListItemLine>{{ recipe.nutrients.fatContent }}</span>
+              <span matListItemLine>{{ recipe.nutrients['fatContent'] }}</span>
             </mat-list-item>
-            <mat-list-item *ngIf="recipe.nutrients.carbohydrateContent">
+            <mat-list-item *ngIf="recipe.nutrients['carbohydrateContent']">
               <span matListItemTitle>Carbs:</span>
-              <span matListItemLine>{{ recipe.nutrients.carbohydrateContent }}</span>
+              <span matListItemLine>{{ recipe.nutrients['carbohydrateContent'] }}</span>
             </mat-list-item>
-            <mat-list-item *ngIf="recipe.nutrients.proteinContent">
+            <mat-list-item *ngIf="recipe.nutrients['proteinContent']">
               <span matListItemTitle>Protein:</span>
-              <span matListItemLine>{{ recipe.nutrients.proteinContent }}</span>
+              <span matListItemLine>{{ recipe.nutrients['proteinContent'] }}</span>
             </mat-list-item>
           </mat-list>
         </mat-expansion-panel>
-      </mat-accordion> -->
+      </mat-accordion>
 
       <div class="time-info">
         <mat-icon>schedule</mat-icon>
@@ -78,6 +78,6 @@
 
 <mat-dialog-actions align="end">
   <button matButton mat-dialog-close>Cancel</button>
-  <button matButton [mat-dialog-close]="true" cdkFocusInitial (click)="save()" >save</button>
+  <button matButton [mat-dialog-close]="true" cdkFocusInitial (click)="save()">save</button>
 </mat-dialog-actions>
 <!--  -->

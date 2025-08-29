@@ -1,11 +1,12 @@
 import { Component, OnInit, inject } from '@angular/core';
-// import { DbRecipePull } from '../../interfaces/db-recipe-pull';
-import { RecipeInfo } from '../../interfaces/recipe-info';
+ import { DbRecipePull } from '../../interfaces/db-recipe-pull';
+import { DbRecipeModel } from '../../interfaces/db-recipe-model';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import {PageEvent, MatPaginatorModule} from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { Filters } from '../filters/filters';
 
 @Component({
   selector: 'app-cookbook',
@@ -13,16 +14,17 @@ import { CommonModule } from '@angular/common';
     MatButtonModule,
     MatCardModule,
     MatPaginatorModule,
-    CommonModule
+    CommonModule,
+    Filters
   ],
   templateUrl: './cookbook.html',
   styleUrl: './cookbook.scss'
 })
-export class Cookbook  {
+export class Cookbook implements OnInit {
 
-  savedrecipes: RecipeInfo[] = [];
-  visibleRecipes: RecipeInfo[] = [];
-  selectedRecipe?: RecipeInfo;
+  savedrecipes: DbRecipeModel[] = [];
+  visibleRecipes: DbRecipeModel[] = [];
+  selectedRecipe?: DbRecipeModel;
 
   recipesPerPage: number = 12;
   totalPages!: number;
@@ -30,32 +32,31 @@ export class Cookbook  {
 
   private router = inject(Router);
 
-  // constructor(private recipeService: DbRecipePull) { }
+  constructor(private recipeService: DbRecipePull) { }
 
-  // ngOnInit(): void {
-  //   this.loadRecipes();
-  // }
+  ngOnInit(): void {
+    this.loadRecipes();
+  }
 
-  // loadRecipes(): void {
-  //   this.recipeService.getAllSavedRecipes().subscribe({
-  //     next: (data) => {
-  //       this.initPagination(data);
-  //       this.setRecipes(data);
-  //       this.setPagination();
-  //     },
-  //     error: (err) => console.error('Error loading recipes:', err)
-  //   });
-  // }
+  loadRecipes(): void {
+    this.recipeService.getAllSavedRecipes().subscribe({
+      next: (data) => {
+        this.initPagination(data);
+        this.setRecipes(data);
+        this.setPagination();
+      },
+      error: (err) => console.error('Error loading recipes:', err)
+    });
+  }
 
-  private initPagination(recipes: RecipeInfo[]) {
+  private initPagination(recipes: DbRecipeModel[]) {
     this.totalPages = Math.ceil(recipes.length / this.recipesPerPage);
   }
 
-  private setRecipes(recipes: RecipeInfo[]) {
-    this.savedrecipes = recipes.map((item, index) => {
-      return { ...item, recipe_id: String(index + 1) }; // force string ID
-    });
-  }
+ private setRecipes(recipes: DbRecipeModel[]) {
+  this.savedrecipes = recipes; // ✅ keep real recipe_id (cmek3v00r0000vi5czcna6f1n)
+}
+
 
   private setPagination() {
     const startIndex = (this.activePage - 1) * this.recipesPerPage;
@@ -68,14 +69,14 @@ export class Cookbook  {
     this.setPagination();
   }
 
-  viewRecipe(recipe: RecipeInfo) {
+  viewRecipe(recipe: DbRecipeModel) {
     this.router.navigateByUrl(`recipe-details/${recipe.recipe_id}`);
   }
 
-  // loadRecipeDetails(id: string): void {
-  //   this.recipeService.getRecipeById(id).subscribe({
-  //     next: (data) => this.selectedRecipe = data,
-  //     error: (err) => console.error('Error loading recipe details:', err)
-  //   });
-  // }
+  loadRecipeDetails(id: string): void {
+    this.recipeService.getRecipeById(id).subscribe({
+      next: (data) => this.selectedRecipe = data,
+      error: (err) => console.error('Error loading recipe details:', err)
+    });
+  }
 }

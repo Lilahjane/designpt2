@@ -1,119 +1,100 @@
-<mat-card class="recipe-card">
-  <div class="recipe-header" *ngIf="recipe.image">
-    <img mat-card-image [src]="recipe.image" [alt]="recipe.title" class="recipe-image">
-    <div class="recipe-header-overlay">
-      <h1 class="mat-display-2">{{recipe.title}}</h1>
-      <div class="recipe-meta">
-        <span *ngIf="recipe.author">
-          <mat-icon>person</mat-icon>
-          {{recipe.author}}
-        </span>
-        <span *ngIf="recipe.site_name">
-          <mat-icon>public</mat-icon>
-          {{recipe.site_name}}
-        </span>
-        <span *ngIf="recipe.cuisine">
-          <mat-icon>place</mat-icon>
-          {{recipe.cuisine}}
-        </span>
-      </div>
-    </div>
-  </div>
+<ng-container *ngIf="recipe; else loading">
+  <mat-card class="recipe-card">
+    <mat-card-header>
+      <mat-card-title>{{ recipe.title }}</mat-card-title>
+      <mat-card-subtitle>
+        By {{ recipe.author }} | {{ recipe.site_name }}
+      </mat-card-subtitle>
+    </mat-card-header>
 
-  <mat-card-content>
-    <div class="recipe-description" *ngIf="recipe.description">
-      <p>{{recipe.description}}</p>
-    </div>
+    <img mat-card-image [src]="recipe.image" alt="Recipe Image" />
 
-    <mat-divider></mat-divider>
+    <mat-card-content>
+      <p class="description">
+        {{ recipe.description }}
+      </p>
 
-    <div class="recipe-details-grid">
-      <!-- Time Information -->
-      <mat-card class="detail-card">
-        <mat-card-header>
-          <mat-card-title><mat-icon>schedule</mat-icon> Time</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <div *ngIf="recipe.prep_time" class="time-item">
-            <span>Prep Time</span>
-            <strong>{{recipe.prep_time}}</strong>
-          </div>
-          <div *ngIf="recipe.cook_time" class="time-item">
-            <span>Cook Time</span>
-            <strong>{{recipe.cook_time}}</strong>
-          </div>
-          <div *ngIf="recipe.total_time" class="time-item">
-            <span>Total Time</span>
-            <strong>{{recipe.total_time}}</strong>
-          </div>
-        </mat-card-content>
-      </mat-card>
+      <mat-chip-listbox *ngIf="recipe.category">
+        <mat-chip *ngFor="let cat of recipe.category.split(',')">
+          {{ cat }}
+        </mat-chip>
+      </mat-chip-listbox>
 
-      <!-- Yields -->
-      <mat-card class="detail-card" *ngIf="recipe.yields">
-        <mat-card-header>
-          <mat-card-title><mat-icon>restaurant</mat-icon> Servings</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <div class="servings">{{recipe.yields}}</div>
-        </mat-card-content>
-      </mat-card>
-
-      <!-- Ratings -->
-      <mat-card class="detail-card" *ngIf="recipe.ratings">
-        <mat-card-header>
-          <mat-card-title><mat-icon>star</mat-icon> Rating</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <div class="rating-container">
-            <mat-icon *ngFor="let star of getStars(recipe.ratings)" [class.filled]="star === 'star'">
-              {{star}}
-            </mat-icon>
-            <span *ngIf="recipe.ratings_count">({{recipe.ratings_count}} reviews)</span>
-          </div>
-        </mat-card-content>
-      </mat-card>
-    </div>
-
-    <mat-divider></mat-divider>
-
-    <!-- Nutrition Facts -->
-    <section *ngIf="recipe.nutrients.length > 0" class="nutrition-section">
-      <h2><mat-icon>nutrition</mat-icon> Nutrition Facts</h2>
-      <mat-card class="nutrition-card">
-        <mat-card-content>
-          <div class="nutrition-grid">
-            <div *ngFor="let nutrient of recipe.nutrients" class="nutrition-item">
-              <span class="nutrition-label">{{getNutrientLabel(nutrient.id)}}:</span>
-              <span class="nutrition-value">{{getNutrientValue(nutrient)}}</span>
-            </div>
-          </div>
-        </mat-card-content>
-      </mat-card>
-    </section>
-
-    <mat-divider></mat-divider>
-
-    <!-- Instructions -->
-    <section class="instructions-section">
-      <h2><mat-icon>list_alt</mat-icon> Instructions</h2>
       <mat-accordion>
-        <mat-expansion-panel *ngFor="let instruction of recipe.instructions_list; let i = index" [expanded]="i === 0">
+        <mat-expansion-panel hideToggle>
           <mat-expansion-panel-header>
-            <mat-panel-title>Step {{i + 1}}</mat-panel-title>
+            <mat-panel-title> Nutrition Info </mat-panel-title>
+            <mat-panel-description> Summary of nutrients </mat-panel-description>
           </mat-expansion-panel-header>
-          <p>{{instruction}}</p>
+
+          <mat-list>
+            <mat-list-item *ngIf="recipe.calories">
+              <span matListItemTitle>Calories:</span>
+              <span matListItemLine>{{ recipe.calories }}</span>
+            </mat-list-item>
+            <mat-list-item *ngIf="recipe.fat_content">
+              <span matListItemTitle>Fat:</span>
+              <span matListItemLine>{{ recipe.fat_content }}</span>
+            </mat-list-item>
+            <mat-list-item *ngIf="recipe.carbohydrate_content">
+              <span matListItemTitle>Carbs:</span>
+              <span matListItemLine>{{ recipe.carbohydrate_content }}</span>
+            </mat-list-item>
+            <mat-list-item *ngIf="recipe.protein_content">
+              <span matListItemTitle>Protein:</span>
+              <span matListItemLine>{{ recipe.protein_content }}</span>
+            </mat-list-item>
+            <mat-list-item *ngIf="recipe.sugar_content">
+              <span matListItemTitle>Sugar:</span>
+              <span matListItemLine>{{ recipe.sugar_content }}</span>
+            </mat-list-item>
+            <mat-list-item *ngIf="recipe.sodium_content">
+              <span matListItemTitle>Sodium:</span>
+              <span matListItemLine>{{ recipe.sodium_content }}</span>
+            </mat-list-item>
+            <mat-list-item *ngIf="recipe.cholesterol_content">
+              <span matListItemTitle>Cholesterol:</span>
+              <span matListItemLine>{{ recipe.cholesterol_content }}</span>
+            </mat-list-item>
+          </mat-list>
         </mat-expansion-panel>
       </mat-accordion>
-    </section>
-  </mat-card-content>
 
-  <mat-card-actions align="end">
-    <a mat-button [href]="recipe.url" target="_blank" *ngIf="recipe.url">
-      <mat-icon>open_in_new</mat-icon> Original Recipe
-    </a>
-    <button mat-button (click)="printRecipe()">
-      <mat-icon>print</mat-icon> Print
-    </button>
-  </mat-card-actions>
-</mat-card>
+      <div class="time-info">
+        <mat-icon>schedule</mat-icon>
+        Prep: {{ recipe.prep_time }} min |
+        Cook: {{ recipe.cook_time }} min |
+        Total: {{ recipe.total_time }} min
+      </div>
+
+      <div class="yield">
+        <strong>Yields:</strong> {{ recipe.yields }}
+      </div>
+
+      <!-- <h3>Ingredients</h3>
+      <ul>
+        <li *ngFor="let ingredient of recipe.ingredients">{{ ingredient }}</li>
+      </ul> -->
+
+      <h3>Instructions</h3>
+      <ol>
+        <li *ngFor="let step of recipe.instructions_list">{{ step }}</li>
+      </ol>
+
+      <h3>Ratings</h3>
+      <mat-icon>star</mat-icon>
+      {{ recipe.ratings }} ({{ recipe.ratings_count }} ratings)
+
+      <h3 *ngIf="recipe.cuisine">Cuisine</h3>
+      <mat-chip *ngIf="recipe.cuisine">{{ recipe.cuisine }}</mat-chip>
+
+      <div class="link">
+        <a [href]="recipe.canonical_url" target="_blank">View Full Recipe</a>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</ng-container>
+
+<ng-template #loading>
+  <p>Loading recipe details...</p>
+</ng-template>

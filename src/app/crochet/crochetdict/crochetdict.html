@@ -1,0 +1,27 @@
+<div class="nav-container">
+  <div class="grid">
+    <mat-card class="recipe-card" *ngFor="let pattern of visiblePatterns">
+      <mat-card-header>
+        <mat-card-title>{{ pattern.title }}</mat-card-title>
+      </mat-card-header>
+      <img mat-card-image [src]="pattern.featured_image" alt="Pattern image" />
+      <mat-card-content>
+        <div>{{ pattern.steps.length }} steps</div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="viewPattern(pattern)">
+          VIEW
+        </button>
+      </mat-card-actions>
+    </mat-card>
+
+    <div class="pagination">
+      <mat-paginator
+        [length]="patterns.length"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="[6, 12, 24]"
+        (page)="handlePageChange($event)">
+      </mat-paginator>
+    </div>
+  </div>
+</div>

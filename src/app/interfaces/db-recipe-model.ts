@@ -1,6 +1,4 @@
-
-export interface RecipeInfo {
-  recipe_url: string;
+export interface DbRecipeModel {
   recipe_id: string;
   url?: string;
   host?: string;

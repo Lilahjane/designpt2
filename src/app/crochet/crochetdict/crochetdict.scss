@@ -1,0 +1,23 @@
+
+.nav{
+ 
+  padding: 2%;
+
+}
+
+.grid{
+ 
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(25%, 1fr));
+  gap:2%
+  
+
+
+}
+.recipe-card{
+  img{
+    aspect-ratio: 1113/626;
+    align-self: auto;
+    object-fit: fill;
+  }
+}
